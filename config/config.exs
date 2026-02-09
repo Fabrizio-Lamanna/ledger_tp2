@@ -4,8 +4,8 @@ config :ledger, Ledger.Repo,
   database: "ledger_repo",
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: "db",
   pool: Ecto.Adapters.SQL.Sandbox,
-  log: false
+  pool_size: 10
 
 config :ledger, ecto_repos: [Ledger.Repo]
