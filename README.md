@@ -15,7 +15,7 @@ Aplicación CLI desarrollada en **Elixir** para la gestión de usuarios, cuentas
 
 ```bash
 git clone <url-del-repositorio>
-cd ledger
+cd ledger_tp2
 ```
 
 ---
@@ -40,6 +40,11 @@ docker compose build --no-cache
 
 ```bash
 docker compose up -d
+
+docker compose exec app mix ecto.create
+
+docker compose exec app mix ecto.migrate
+
 ```
 
 ---
@@ -51,7 +56,7 @@ La aplicación se ejecuta como una **CLI** dentro del contenedor.
 Ejemplo:
 
 ```bash
-docker compose run --rm app ./ledger ver_usuario -id=1
+docker compose exec app ./ledger crear_usuario -n=LionelMessi -b=1987-06-24
 ```
 
 ---
@@ -61,7 +66,7 @@ docker compose run --rm app ./ledger ver_usuario -id=1
 Para evitar escribir el comando completo en cada ejecución, se puede crear un alias:
 
 ```bash
-alias ledger="docker compose run --rm -q app ./ledger"
+alias ledger="docker compose exec app ./ledger"
 ```
 
 Luego ejecutar directamente:
@@ -77,7 +82,11 @@ ledger crear_usuario -n=LionelMessi -b=1987-06-24
 Los tests se ejecutan dentro de Docker utilizando el entorno `test`.
 
 ```bash
-docker compose run --rm -e MIX_ENV=test app mix test --cover
+docker compose exec -e MIX_ENV=test app mix ecto.create
+
+docker compose exec -e MIX_ENV=test app mix ecto.migrate
+
+docker compose exec -e MIX_ENV=test app mix test --cover
 ```
 
 Esto garantiza:

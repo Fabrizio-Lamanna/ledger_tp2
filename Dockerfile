@@ -17,4 +17,4 @@ COPY test test
 
 RUN mix compile && mix escript.build
 
-CMD ["./ledger"]
+CMD ["sh", "-c", "tail -f /dev/null"]

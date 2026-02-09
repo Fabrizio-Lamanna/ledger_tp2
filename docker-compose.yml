@@ -4,7 +4,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ledger_repo
+      POSTGRES_DB: ledger_dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -13,12 +15,13 @@ services:
 
   app:
     build: .
+    environment:
+      MIX_ENV: dev
     depends_on:
       db:
         condition: service_healthy
-    command: >
-      sh -c "
-      mix ecto.create &&
-      mix ecto.migrate &&
-      ./ledger
-      "
+    tty: true
+    stdin_open: true
+
+volumes:
+  pgdata:
