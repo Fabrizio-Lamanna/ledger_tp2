@@ -67,11 +67,8 @@ alias ledger="docker compose run --rm -q app ./ledger"
 Luego ejecutar directamente:
 
 ```bash
-ledger ver_usuario -id=1
+ledger crear_usuario -n=LionelMessi -b=1987-06-24
 ```
-
-> ⚠️ El alias funciona únicamente en shells tipo Unix (bash, zsh, etc.).
-> En Windows sin WSL, debe usarse el comando completo.
 
 ---
 
